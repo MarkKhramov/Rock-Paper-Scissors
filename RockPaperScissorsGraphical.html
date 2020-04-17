@@ -5,30 +5,55 @@
         position: fixed;
         top: 60%;
         left: 50%;
-        transform: translate(-50%, -50%);
-        justify-items: center;
+        transform: translate(-50%, -50%);    
     }
-
+    
     .scoreBoard
     {
         display: grid;
         grid-template-rows: auto auto auto;
-        grid-template-columns: auto auto;
+        grid-template-columns: auto auto;      
+        justify-content: space-evenly;  
+    }
+    
+    .computerPick
+    {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .roundResult
+    {
+        position: fixed;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    div
+    {
+        text-align: center;
     }
     
 </style>
 <html>
+    
+    <div class = "scoreBoard">  
+        <div style="grid-area: 1 / 1 / 2 / 2;">Your Score</div>
+        <div style="grid-area: 2 / 1 / 3 / 2;">0</div>
+        <div style="grid-area: 1 / 2 / 2 / 3;">Computer Score</div>
+        <div style="grid-area: 2 / 2 / 3 / 3;">0</div>
+        <div style="grid-area: 3 / 1 / 4 / 3;">YOU LOSE</div>
+    </div>
+
     <div class="playerButtons">
         <button type = "button">Rock</button>
         <button type = "button">Paper</button>
         <button type = "button">Scissors</button>
     </div>
 
-    <div class = "scoreBoard">
-        <div style="grid-area: 1 / 1 / 2 / 3;">Score Board</div>
-        <div style="grid-area: 2 / 1 / 3 / 2;">Your Score</div>
-        <div style="grid-area: 3 / 1 / 4 / 2;">0</div>
-        <div style="grid-area: 2 / 2 / 3 / 3;">Computer Score</div>
-        <div style="grid-area: 3 / 2 / 4 / 3;">0</div>
-    </div>
+    <div class= "computerPick">rock</div>
+
+    <div class = "roundResult">You win</div>
 </html>
