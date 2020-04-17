@@ -16,14 +16,6 @@
         justify-content: space-evenly;  
     }
     
-    .computerPick
-    {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    
     .roundResult
     {
         position: fixed;
@@ -40,12 +32,13 @@
 <html>
 <body>
     
+
     <div class = "scoreBoard">  
         <div style="grid-area: 1 / 1 / 2 / 2;">Your Score</div>
-        <div style="grid-area: 2 / 1 / 3 / 2;">0</div>
+        <div style="grid-area: 2 / 1 / 3 / 2;" id = 'scorePlayer'>0</div>
         <div style="grid-area: 1 / 2 / 2 / 3;">Computer Score</div>
-        <div style="grid-area: 2 / 2 / 3 / 3;">0</div>
-        <div style="grid-area: 3 / 1 / 4 / 3;">YOU LOSE</div>
+        <div style="grid-area: 2 / 2 / 3 / 3;" id = 'scoreComputer'>0</div>
+        <div style="grid-area: 3 / 1 / 4 / 3;" class = 'winOrLose'></div>
     </div>
 
     <div class="playerButtons">
@@ -54,12 +47,21 @@
         <button type = "button">Scissors</button>
     </div>
 
-    <div class= "computerPick">rock</div>
+   
 
-    <div class = "roundResult">You win</div>
+    <div class = "roundResult"></div>
 
 <script>
-        function computerPlay()
+    let score = 0;
+    let computerScore = 0;
+    
+    const playerButtons = document.querySelectorAll("button");
+
+    playerButtons.forEach(button => button.addEventListener('click', () => {
+            game(button.textContent);
+        }));
+
+    function computerPlay()
     {
         switch (Math.ceil(Math.random() * 3))
         {
@@ -71,7 +73,6 @@
                 return "Paper";
                 break;
             default:
-                console.log("3");
                 return "Scissors";
         }
     }
@@ -91,16 +92,13 @@
             return "There was a Tie!";
     }
 
-    function game()
+    function game(playerPick)
     {
-        let score = 0;
-        let computerScore = 0;
         let game = "";
-
-        // Plays five games of rock paper scissors
-        for(let i = 0; i < 5; i++)
+        
+        if(computerScore < 5 && score < 5)
         {
-            game = playRound(prompt("Rock, Paper, or Scissors?"), computerPlay());
+            game = playRound(playerPick, computerPlay());
 
             if(game.charAt(4) == 'W')
             {
@@ -110,28 +108,35 @@
             {
                 computerScore++;
             }
-            
-            console.log(game);
-        }
-        
-        // Prints the results
-        console.log("Your score was " + score + " vs the computer's score of " + computerScore);
-        
-        if(score > computerScore)
+        } 
+
+        refreshScoreBoard(game);
+        console.log(game);
+    }
+
+    function refreshScoreBoard(result)
+    {
+        document.getElementById("scorePlayer").textContent = score;
+        document.getElementById("scoreComputer").textContent = computerScore;
+
+        if(result != "")
         {
-            console.log("You Win!");
-        }
-        else if(score == computerScore)
-        {
-            console.log("Tie!");
-        }
-        else
-        {
-            console.log("You Lose");
+            document.getElementsByClassName("roundResult")[0].textContent = result;
         }
 
+        if(score == 5 || computerScore == 5)
+        {
+            if(score > computerScore)
+            {
+                document.getElementsByClassName("winOrLose")[0].textContent = "You Win the Game!"
+            }
+            else
+            {
+                document.getElementsByClassName("winOrLose")[0].textContent = "You Lose the Game!"
+            }
+        }
     }
-    game();
+   
 </script>
 </body>
 </html>
